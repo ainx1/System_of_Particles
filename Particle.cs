@@ -64,7 +64,8 @@ namespace particles
             public override void Draw(Graphics g)
             {
                 // рассчитываем коэффициент прозрачности по шкале от 0 до 1.0
-                float k = Math.Min(1f, Life / 100);
+                // $Добавляем Math.Max(0, ...), чтобы k не стало меньше нуля
+                float k = Math.Max(0f, Math.Min(1f, Life / 100));
                 // рассчитываем значение альфа канала в шкале от 0 до 255
                 // по аналогии с RGB, он используется для задания прозрачности
                 int alpha = (int)(k * 255);

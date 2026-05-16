@@ -16,37 +16,47 @@ namespace particles
         // например притягивать
         public abstract void ImpactParticle(Particle particle);
 
-        // базовый класс для отрисовки точечки
-        public void Render(Graphics g)
+        public virtual void Render(Graphics g) // добавил слово virtual, ну чтобы override потом можно было юзать
         {
-            g.FillEllipse(
-                    new SolidBrush(Color.Red),
-                    X - 5,
-                    Y - 5,
-                    10,
-                    10
-                );
+            /* ... */
         }
     }
 
-    public class GravityPoint : IImpactPoint
-    {
-        public int Power = 100; // сила притяжения
-
-        // а сюда по сути скопировали с минимальными правками то что было в UpdateState
-        public override void ImpactParticle(Particle particle)
+        public class GravityPoint : IImpactPoint
         {
-            // и так считаем вектор притяжения к точке
-            float gX = X - particle.X;
-            float gY = Y - particle.Y;
-            // считаем квадрат расстояния между частицей и точкой r^2
-            float r2 = (float)Math.Max(100, gX * gX + gY * gY);
+            public int Power = 100; // сила притяжения
 
-            // пересчитываем вектор скорости с учетом притяжения к точке
-            particle.SpeedX += gX * Power / r2;
-            particle.SpeedY += gY * Power / r2;
+            // а сюда по сути скопировали с минимальными правками то что было в UpdateState
+            public override void ImpactParticle(Particle particle)
+            {
+                // и так считаем вектор притяжения к точке
+                float gX = X - particle.X;
+                float gY = Y - particle.Y;
+                // считаем квадрат расстояния между частицей и точкой r^2
+                double r = Math.Sqrt(gX * gX + gY * gY); // считаем расстояние от центра точки до центра частицы
+                if (r + particle.Radius < Power / 2) // если частица оказалось внутри окружности
+                {
+                // то притягиваем ее
+                float r2 = (float)Math.Max(100, gX * gX + gY * gY);
+                particle.SpeedX += gX * Power / r2;
+                particle.SpeedY += gY * Power / r2;
+                }
+            }
+
+            // базовый класс для отрисовки точечки
+            public override void Render(Graphics g)
+            {
+                // буду рисовать окружность с диаметром равным Power
+                g.DrawEllipse(
+                       new Pen(Color.Red),
+                       X - Power / 2,
+                       Y - Power / 2,
+                       Power,
+                       Power
+                   );
+            }
         }
-    }
+    
 
     public class AntiGravityPoint : IImpactPoint
     {
@@ -62,6 +72,18 @@ namespace particles
             particle.SpeedX -= gX * Power / r2; // тут минусики вместо плюсов
             particle.SpeedY -= gY * Power / r2; // и тут
         }
-
+        // базовый класс для отрисовки точечки
+        public override void Render(Graphics g)
+        {
+            // буду рисовать окружность с диаметром равным Power
+            g.DrawEllipse(
+                   new Pen(Color.Red),
+                   X - Power / 2,
+                   Y - Power / 2,
+                   Power,
+                   Power
+               );
+        }
     }
+
 }
