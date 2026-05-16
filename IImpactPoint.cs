@@ -48,14 +48,22 @@ namespace particles
             {
                 // буду рисовать окружность с диаметром равным Power
                 g.DrawEllipse(
-                       new Pen(Color.Red),
-                       X - Power / 2,
-                       Y - Power / 2,
-                       Power,
-                       Power
-                   );
+                new Pen(Color.Red),
+                X - Power / 2,
+                Y - Power / 2,
+                Power,
+                Power
+                );
+
+                g.DrawString(
+                $"Я гравитон\nc силой {Power}", // надпись, можно перенос строки вставлять (если вы Катя, то может не работать и надо использовать \r\n)
+                new Font("Verdana", 10), // шрифт и его размер
+                new SolidBrush(Color.White), // цвет шрифта
+                X, // расположение в пространстве
+                Y
+                );
             }
-        }
+    }
     
 
     public class AntiGravityPoint : IImpactPoint

@@ -17,7 +17,6 @@ namespace particles
         public float SpeedX; // скорость перемещения по оси X
         public float SpeedY; // скорость перемещения по оси Y
 
-
         public float Life; // запас здоровья частицы
 
         // добавили генератор случайных чисел

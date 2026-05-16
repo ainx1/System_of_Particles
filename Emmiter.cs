@@ -35,16 +35,12 @@ namespace particles
         {
             int particlesToCreate = ParticlesPerTick; // фиксируем счетчик сколько частиц нам создавать за тик
 
-
             foreach (var particle in particles)
             {
-                particle.Life -= 1; // уменьшаю здоровье
-                //                    // если здоровье кончилось
+                // если здоровье кончилось
                 if (particle.Life <= 0) // если частицы умерла
                 {
-                    /* 
-                     * то проверяем надо ли создать частицу
-                     */
+                     //проверяем надо ли создать частицу
                     if (particlesToCreate > 0)
                     {
                         /* у нас как сброс частицы равносилен созданию частицы */
@@ -54,7 +50,12 @@ namespace particles
                 }
                 else
                 {
+                    /* теперь двигаю вначале */
+                    particle.X += particle.SpeedX;
+                    particle.Y += particle.SpeedY;
                     // каждая точка по-своему воздействует на вектор скорости
+
+                    particle.Life -= 1; // уменьшаю здоровье
                     foreach (var point in impactPoints)
                     {
                         point.ImpactParticle(particle);
@@ -64,10 +65,6 @@ namespace particles
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
 
-                    // и добавляем новый, собственно он даже проще становится, 
-                    // так как теперь мы храним вектор скорости в явном виде и его не надо пересчитывать
-                    particle.X += particle.SpeedX;
-                    particle.Y += particle.SpeedY;
                 }
             }
 
@@ -91,7 +88,7 @@ namespace particles
                 }
                 else
                 {
-                    break; // а если частиц уже 500 штук, то ничего не генерирую
+                    break; // если частиц 500 штук, то ничего не генерирую
                 }
             }
 
