@@ -140,12 +140,12 @@ namespace particles
             // текст с количеством в центре
             var stringFormat = new StringFormat();
             stringFormat.Alignment = StringAlignment.Center;
-            stringFormat.LineAlignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Far;
 
             var text = $"{detectedParticles.Count}";
             var font = new Font("Verdana", 12, FontStyle.Bold);
 
-            g.DrawString(text, font, new SolidBrush(Color.Lime), X, Y, stringFormat);
+            g.DrawString(text, font, new SolidBrush(Color.White), X, Y, stringFormat);
 
             // очищаем список после отрисовки чтобы не было частиц с позапрошлых кадров и тд
             detectedParticles.Clear();
