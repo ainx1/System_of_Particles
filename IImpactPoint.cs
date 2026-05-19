@@ -105,6 +105,53 @@ namespace particles
         }
     }
 
+    // задача 8
+    public class RadarPoint : IImpactPoint
+    {
+        public int Power = 100;
+                                
+        private List<PointF> detectedParticles = new List<PointF>();
+        public override void ImpactParticle(Particle particle)
+        {
+            float gX = X - particle.X;
+            float gY = Y - particle.Y;
+            double r = Math.Sqrt(gX * gX + gY * gY);
+
+            // если частица попала в зону радара
+            if (r < Power / 2)
+            {
+                // запоминаем её координаты
+                detectedParticles.Add(new PointF(particle.X, particle.Y));
+            }
+        }
+
+        public override void Render(Graphics g)
+        {
+            // окружность радара
+            g.DrawEllipse(new Pen(Color.Lime, 2), X - Power / 2, Y - Power / 2, Power, Power);
+
+            // копии для каждой засеченной частицы
+            foreach (var pos in detectedParticles)
+            {
+
+                g.DrawEllipse(new Pen(Color.Lime, 2), pos.X - 5, pos.Y - 5, 10, 10);
+            }
+
+            // текст с количеством в центре
+            var stringFormat = new StringFormat();
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Center;
+
+            var text = $"{detectedParticles.Count}";
+            var font = new Font("Verdana", 12, FontStyle.Bold);
+
+            g.DrawString(text, font, new SolidBrush(Color.Lime), X, Y, stringFormat);
+
+            // очищаем список после отрисовки чтобы не было частиц с позапрошлых кадров и тд
+            detectedParticles.Clear();
+        }
+    }
+
     public class GravityPoint : IImpactPoint
         {
             public int Power = 100; // сила притяжения

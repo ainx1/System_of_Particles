@@ -19,14 +19,15 @@ namespace particles
 
         GravityPoint point1; // добавил поле под первую точку
         GravityPoint point2; // добавил поле под вторую точку
-                             
+
+        RadarPoint radar; // поле для задача 8
         ColorPoint colorPoint; // поле для раскрашивателя задача 5
         public Form1()
         {
 
             InitializeComponent();
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
-
+            
             this.emitter = new Emitter // создаю эмиттер и привязываю его к полю emitter
             {
                 Direction = 0,
@@ -71,13 +72,23 @@ namespace particles
             // задача 6 
              var counterPoint = new CounterPoint
             {
-                X = picDisplay.Width / 2, // по центру
+                X = picDisplay.Width / 4, // по центру
                 Y = picDisplay.Height - 100,
                 Power = 100
        
             };
             emitter.impactPoints.Add(counterPoint);
 
+            // задача 8 радар
+            this.radar = new RadarPoint
+            {
+                X = picDisplay.Width / 2.5f,
+                Y = picDisplay.Height / 4,
+                Power = 100
+            };
+            emitter.impactPoints.Add(radar);
+
+            picDisplay.MouseWheel += picDisplay_MouseWheel; // задача 8 радар
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -96,6 +107,9 @@ namespace particles
             // а тут передаем положение мыши, в положение гравитона
             point2.X = e.X;
             point2.Y = e.Y;
+
+            radar.X = e.X;
+            radar.Y = e.Y; //задача 8 радар двигаем радар за мышью
         }
 
         private void tbDirection_Scroll(object sender, EventArgs e)
@@ -113,7 +127,7 @@ namespace particles
         {
             point2.Power = tbGraviton2.Value;
         }
-
+        // задача 5
         private void tbColorPointPos_Scroll(object sender, EventArgs e)
         {
             // двигаем по оси X задача 5
@@ -134,6 +148,29 @@ namespace particles
                 };
 
                 emitter.impactPoints.Add(newCounter);
+            }
+        }
+
+        // задача 8
+        private void picDisplay_MouseWheel(object sender, MouseEventArgs e)
+        {
+            // Проверяем, что радар вообще создан
+            if (radar != null)
+            {
+                // e.Delta > 0 колесико от себя
+                // e.Delta < 0, когда крутим на себя
+                if (e.Delta > 0)
+                {
+                    radar.Power += 10;
+                }
+                else
+                {
+                    // уменьшаем но радар не стал мелким слишком
+                    if (radar.Power > 10)
+                    {
+                        radar.Power -= 10;
+                    }
+                }
             }
         }
     }

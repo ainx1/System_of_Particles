@@ -39,6 +39,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tbColorPointPos = new System.Windows.Forms.TrackBar();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton1)).BeginInit();
@@ -134,11 +135,21 @@
             this.tbColorPointPos.TabIndex = 9;
             this.tbColorPointPos.Scroll += new System.EventHandler(this.tbColorPointPos_Scroll);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(539, 397);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Перемещение точки маляра";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 472);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.tbColorPointPos);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
@@ -175,6 +186,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TrackBar tbColorPointPos;
+        private System.Windows.Forms.Label label4;
     }
 }
 
