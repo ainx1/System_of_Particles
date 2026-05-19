@@ -36,10 +36,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tbGraviton1 = new System.Windows.Forms.TrackBar();
             this.tbGraviton2 = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbColorPointPos = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbColorPointPos)).BeginInit();
             this.SuspendLayout();
             // 
             // picDisplay
@@ -49,6 +53,7 @@
             this.picDisplay.Size = new System.Drawing.Size(776, 382);
             this.picDisplay.TabIndex = 0;
             this.picDisplay.TabStop = false;
+            this.picDisplay.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseClick);
             this.picDisplay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseMove);
             // 
             // timer1
@@ -102,23 +107,57 @@
             this.tbGraviton2.TabIndex = 6;
             this.tbGraviton2.Scroll += new System.EventHandler(this.tbGraviton2_Scroll);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(285, 397);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Гравитон1";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(415, 397);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Гравитон2";
+            // 
+            // tbColorPointPos
+            // 
+            this.tbColorPointPos.Location = new System.Drawing.Point(530, 417);
+            this.tbColorPointPos.Maximum = 776;
+            this.tbColorPointPos.Name = "tbColorPointPos";
+            this.tbColorPointPos.Size = new System.Drawing.Size(258, 45);
+            this.tbColorPointPos.TabIndex = 9;
+            this.tbColorPointPos.Scroll += new System.EventHandler(this.tbColorPointPos_Scroll);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 472);
+            this.Controls.Add(this.tbColorPointPos);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.tbGraviton2);
             this.Controls.Add(this.tbGraviton1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblDirection);
             this.Controls.Add(this.tbDirection);
             this.Controls.Add(this.picDisplay);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximumSize = new System.Drawing.Size(816, 511);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbColorPointPos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,6 +172,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TrackBar tbGraviton1;
         private System.Windows.Forms.TrackBar tbGraviton2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TrackBar tbColorPointPos;
     }
 }
 

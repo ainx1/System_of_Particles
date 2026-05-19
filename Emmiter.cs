@@ -13,9 +13,6 @@ namespace particles
     {
         // собственно список
         List<Particle> particles = new List<Particle>();
-        public int MousePositionX;
-        public int MousePositionY;
-
         public float GravitationX = 0;
         public float GravitationY = 0; // пусть гравитация будет силой один пиксель за такт, нам хватит
 
@@ -56,6 +53,7 @@ namespace particles
                     // каждая точка по-своему воздействует на вектор скорости
 
                     particle.Life -= 1; // уменьшаю здоровье
+
                     foreach (var point in impactPoints)
                     {
                         point.ImpactParticle(particle);
@@ -74,13 +72,6 @@ namespace particles
             {
                 if (particles.Count < ParticlesCount) // пока частиц меньше 500 генерируем новые
                 {
-                    // а у тут уже наш новый класс используем
-                    //var particle = new ParticleColorful();
-                    //// ну и цвета меняем
-                    //particle.FromColor = Color.White;
-                    //particle.ToColor = Color.FromArgb(0, Color.Black);
-                    //particle.X = MousePositionX;
-                    //particle.Y = MousePositionY;
                     particlesToCreate -= 1;
                     var particle = CreateParticle();
                     ResetParticle(particle);
@@ -105,7 +96,7 @@ namespace particles
             // рисую точки притяжения красными кружочками
             foreach (var point in impactPoints)
             {
-                point.Render(g); // это добавили
+                point.Render(g); 
             }
         }
 
@@ -130,7 +121,6 @@ namespace particles
         {
             // восстанавливаю здоровье
             particle.Life = Particle.rand.Next(LifeMin, LifeMax);
-
             // новое начальное расположение частицы — это то, куда указывает курсор
             particle.X = X;
             particle.Y = Y;
@@ -145,8 +135,15 @@ namespace particles
             particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
             particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
             /* конец ЭТО ДОБАВЛЯЮ  */
-
             particle.Radius = Particle.rand.Next(RadiusMin, RadiusMax);
+
+            // Задача 5 ДЛЯ СБРОСА ЦВЕТА надо было сделать 
+            if (particle is ParticleColorful colorful)
+            {
+                colorful.FromColor = ColorFrom;
+                colorful.ToColor = ColorTo;
+            }
+
         }
 
         public class TopEmitter : Emitter

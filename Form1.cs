@@ -19,7 +19,8 @@ namespace particles
 
         GravityPoint point1; // добавил поле под первую точку
         GravityPoint point2; // добавил поле под вторую точку
-
+                             
+        ColorPoint colorPoint; // поле для раскрашивателя задача 5
         public Form1()
         {
 
@@ -33,34 +34,13 @@ namespace particles
                 SpeedMin = 5,
                 SpeedMax = 10,
                 ColorFrom = Color.Gold,
-                ColorTo = Color.FromArgb(0, Color.Red),
+                ColorTo = Color.FromArgb(0, Color.Black),
                 ParticlesPerTick = 10,
                 X = picDisplay.Width / 2,
                 Y = picDisplay.Height / 2,
             };
 
             emitters.Add(this.emitter); // все равно добавляю в список emitters, чтобы он рендерился и обновлялся
-
-            //// добавил гравитон
-            //emitter.impactPoints.Add(new GravityPoint
-            //{
-            //    X = picDisplay.Width / 2 + 100,
-            //    Y = picDisplay.Height / 2,
-            //});
-
-            //// добавил второй гравитон
-            //emitter.impactPoints.Add(new GravityPoint
-            //{
-            //    X = picDisplay.Width / 2 - 100,
-            //    Y = picDisplay.Height / 2,
-            //});
-
-            ////// в центре антигравитон
-            ////emitter.impactPoints.Add(new AntiGravityPoint
-            ////{
-            ////    X = picDisplay.Width / 2,
-            ////    Y = picDisplay.Height / 2
-            ////});
 
             // привязываем гравитоны к полям
             point1 = new GravityPoint
@@ -77,9 +57,28 @@ namespace particles
             // привязываем поля к эмиттеру
             emitter.impactPoints.Add(point1);
             emitter.impactPoints.Add(point2);
-        }
-    
 
+            // 5 задача раскрашиватель
+            this.colorPoint = new ColorPoint
+            {
+                X = picDisplay.Width / 4, // Слева
+                Y = picDisplay.Height / 1.5f,
+                Color = Color.White 
+            };
+            emitter.impactPoints.Add(colorPoint);
+
+
+            // 6 задача 
+             var counterPoint = new CounterPoint
+            {
+                X = picDisplay.Width / 2, // по центру
+                Y = picDisplay.Height - 100,
+                Power = 100
+       
+            };
+            emitter.impactPoints.Add(counterPoint);
+
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -94,13 +93,6 @@ namespace particles
         }
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
         {
-            // это не трогаем
-            foreach (var emitter in emitters)
-            {
-                emitter.MousePositionX = e.X;
-                emitter.MousePositionY = e.Y;
-            }
-
             // а тут передаем положение мыши, в положение гравитона
             point2.X = e.X;
             point2.Y = e.Y;
@@ -120,6 +112,29 @@ namespace particles
         private void tbGraviton2_Scroll(object sender, EventArgs e)
         {
             point2.Power = tbGraviton2.Value;
+        }
+
+        private void tbColorPointPos_Scroll(object sender, EventArgs e)
+        {
+            // двигаем по оси X задача 5
+            colorPoint.X = tbColorPointPos.Value;
+        }
+
+        // Задача 6
+        private void picDisplay_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                // создаем новый экземпляр счетчика кружка
+                var newCounter = new CounterPoint
+                {
+                    X = e.X, // координата X клика
+                    Y = e.Y, // координата Y клика
+                    Power = 50 // радиус поглощения
+                };
+
+                emitter.impactPoints.Add(newCounter);
+            }
         }
     }
 }

@@ -9,7 +9,6 @@ namespace particles
 {
     public class Particle
     {
-
         public int Radius; // радиус частицы
         public float X; // X координата положения частицы в пространстве
         public float Y; // Y координата положения частицы в пространстве
@@ -34,7 +33,7 @@ namespace particles
             SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
 
             Radius = 2 + rand.Next(10);
-            Life = 20 + rand.Next(100); // Добавили исходный запас здоровья от 20 до 120
+            Life = 20 + rand.Next(100); // добавили исходный запас здоровья от 20 до 120
         }
 
         // тут добавил слово virtual чтобы переопределить функцию
@@ -63,14 +62,14 @@ namespace particles
             public override void Draw(Graphics g)
             {
                 // рассчитываем коэффициент прозрачности по шкале от 0 до 1.0
-                // $Добавляем Math.Max(0, ...), чтобы k не стало меньше нуля
+                // $ Добавляем Math.Max(0, ...), чтобы k не стало меньше нуля ошибка была что альфа -2
                 float k = Math.Max(0f, Math.Min(1f, Life / 100));
                 // рассчитываем значение альфа канала в шкале от 0 до 255
                 // по аналогии с RGB, он используется для задания прозрачности
                 int alpha = (int)(k * 255);
 
                 // создаем цвет из уже существующего, но привязываем к нему еще и значение альфа канала
-                var color = MixColor(ToColor, FromColor, k);
+                var color =MixColor(ToColor, FromColor, k);
                 var b = new SolidBrush(color);
 
                 // нарисовали залитый кружок радиусом Radius с центром в X, Y

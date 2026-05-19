@@ -9,7 +9,7 @@ namespace particles
 {
     public abstract class IImpactPoint
     {
-        public float X; // ну точка же, вот и две координаты
+        public float X;
         public float Y;
 
         // абстрактный метод с помощью которого будем изменять состояние частиц
@@ -22,7 +22,90 @@ namespace particles
         }
     }
 
-        public class GravityPoint : IImpactPoint
+    // задача 5
+    public class ColorPoint : IImpactPoint // задача 5
+    {
+        public Color Color = Color.White; // цветв который красим
+        public int Power = 60;
+
+        public override void ImpactParticle(Particle particle)
+        {
+            // считаем расстояние как в гравитони
+            float gX = X - particle.X;
+            float gY = Y - particle.Y;
+
+            double r = Math.Sqrt(gX * gX + gY * gY);
+
+            // если частица внутри круга
+            if (r < Power / 2)
+            {
+                // базовую частицу в цветную
+                var colorful = particle as Particle.ParticleColorful;
+                
+                    colorful.FromColor = Color; // замена цвета
+            }
+        }
+        public override void Render(Graphics g)
+        {
+
+            g.DrawEllipse(
+                new Pen(Color, 2),
+                X - Power / 2,
+                Y - Power / 2,
+                Power,
+                Power
+            );
+        }
+    }
+    // задача 6 счетчик частиц, которые попали в зону
+    public class CounterPoint : IImpactPoint
+    {
+        public int Count = 0; // счетчик
+        public int Power = 80;
+
+        public override void ImpactParticle(Particle particle)
+        {
+            float gX = X - particle.X;
+            float gY = Y - particle.Y;
+            double r = Math.Sqrt(gX * gX + gY * gY);
+
+            // если частица попала в радиус
+            if (r < Power / 2)
+            {
+                // если частица еще "жива"
+                if (particle.Life > 0)
+                {
+                    particle.Life = 0;
+                    Count++; // увеличиваем счетчик
+                }
+            }
+        }
+        
+        public override void Render(Graphics g)
+        {
+            // рисуем саму зону
+            g.DrawEllipse(new Pen(Color.Yellow, 2), X - Power / 2, Y - Power / 2, Power, Power);
+
+            var stringFormat = new StringFormat();
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Center;
+
+            var text = $"{Count}"; 
+            var font = new Font("Verdana", 12, FontStyle.Bold);
+
+            // число в центре точки
+            g.DrawString(
+                text,
+                font,
+                new SolidBrush(Color.White),
+                X,
+                Y,
+                stringFormat
+            );
+        }
+    }
+
+    public class GravityPoint : IImpactPoint
         {
             public int Power = 100; // сила притяжения
 
@@ -56,7 +139,7 @@ namespace particles
                 );
 
                 g.DrawString(
-                $"Я гравитон\nc силой {Power}", // надпись, можно перенос строки вставлять (если вы Катя, то может не работать и надо использовать \r\n)
+                $"Я гравитон\nc силой {Power}", // надпись, можно перенос строки вставлять
                 new Font("Verdana", 10), // шрифт и его размер
                 new SolidBrush(Color.White), // цвет шрифта
                 X, // расположение в пространстве
