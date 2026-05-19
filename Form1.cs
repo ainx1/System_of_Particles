@@ -58,7 +58,7 @@ namespace particles
             emitter.impactPoints.Add(point1);
             emitter.impactPoints.Add(point2);
 
-            // 5 задача раскрашиватель
+            // задача 5 раскрашиватель
             this.colorPoint = new ColorPoint
             {
                 X = picDisplay.Width / 4, // Слева
@@ -68,7 +68,7 @@ namespace particles
             emitter.impactPoints.Add(colorPoint);
 
 
-            // 6 задача 
+            // задача 6 
              var counterPoint = new CounterPoint
             {
                 X = picDisplay.Width / 2, // по центру
