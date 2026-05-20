@@ -30,19 +30,27 @@ namespace particles
 
         public void UpdateState()
         {
+            while (particles.Count > ParticlesCount)
+            {
+                particles.RemoveAt(particles.Count - 1);
+            }
+
             int particlesToCreate = ParticlesPerTick; // фиксируем счетчик сколько частиц нам создавать за тик
 
-            foreach (var particle in particles)
+            for (int i = particles.Count - 1; i >= 0; i--)
             {
-                // если здоровье кончилось
-                if (particle.Life <= 0) // если частицы умерла
+                var particle = particles[i];
+
+                if (particle.Life <= 0)
                 {
-                     //проверяем надо ли создать частицу
                     if (particlesToCreate > 0)
                     {
-                        /* у нас как сброс частицы равносилен созданию частицы */
-                        particlesToCreate -= 1; // поэтому уменьшаем счётчик созданных частиц на 1
+                        particlesToCreate -= 1;  // поэтому уменьшаем счётчик созданных частиц на 1
                         ResetParticle(particle);
+                    }
+                    else
+                    {
+                        particles.RemoveAt(i);
                     }
                 }
                 else
@@ -62,27 +70,19 @@ namespace particles
                     // гравитация воздействует на вектор скорости, поэтому пересчитываем его
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
-
                 }
             }
 
             // добавил генерацию частиц
             // генерирую не более 10 штук за тик
-            while (particlesToCreate >= 1)
-            {
-                if (particles.Count < ParticlesCount) // пока частиц меньше 500 генерируем новые
-                {
-                    particlesToCreate -= 1;
-                    var particle = CreateParticle();
-                    ResetParticle(particle);
-                    particles.Add(particle);
-                }
-                else
-                {
-                    break; // если частиц 500 штук, то ничего не генерирую
-                }
-            }
 
+            while (particlesToCreate >= 1 && particles.Count < ParticlesCount)
+            {
+                particlesToCreate -= 1;
+                var particle = CreateParticle();
+                ResetParticle(particle);
+                particles.Add(particle);
+            }
         }
         public void Render(Graphics g)
         {

@@ -40,11 +40,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbColorPointPos = new System.Windows.Forms.TrackBar();
             this.label4 = new System.Windows.Forms.Label();
+            this.tbParticlesCount = new System.Windows.Forms.TrackBar();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblParticlesCount = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbColorPointPos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbParticlesCount)).BeginInit();
             this.SuspendLayout();
             // 
             // picDisplay
@@ -140,15 +144,44 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(539, 397);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.Size = new System.Drawing.Size(152, 13);
             this.label4.TabIndex = 10;
             this.label4.Text = "Перемещение точки маляра";
+            // 
+            // tbParticlesCount
+            // 
+            this.tbParticlesCount.Location = new System.Drawing.Point(12, 459);
+            this.tbParticlesCount.Maximum = 500;
+            this.tbParticlesCount.Name = "tbParticlesCount";
+            this.tbParticlesCount.Size = new System.Drawing.Size(502, 45);
+            this.tbParticlesCount.TabIndex = 11;
+            this.tbParticlesCount.Scroll += new System.EventHandler(this.tbParticlesCount_Scroll);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(29, 449);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(103, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Количество частиц";
+            // 
+            // lblParticlesCount
+            // 
+            this.lblParticlesCount.AutoSize = true;
+            this.lblParticlesCount.Location = new System.Drawing.Point(139, 449);
+            this.lblParticlesCount.Name = "lblParticlesCount";
+            this.lblParticlesCount.Size = new System.Drawing.Size(0, 13);
+            this.lblParticlesCount.TabIndex = 13;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 472);
+            this.ClientSize = new System.Drawing.Size(800, 516);
+            this.Controls.Add(this.lblParticlesCount);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.tbParticlesCount);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tbColorPointPos);
             this.Controls.Add(this.label3);
@@ -160,7 +193,7 @@
             this.Controls.Add(this.tbDirection);
             this.Controls.Add(this.picDisplay);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximumSize = new System.Drawing.Size(816, 511);
+            this.MaximumSize = new System.Drawing.Size(816, 555);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
@@ -169,6 +202,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbColorPointPos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbParticlesCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -187,6 +221,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TrackBar tbColorPointPos;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TrackBar tbParticlesCount;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblParticlesCount;
     }
 }
 

@@ -173,5 +173,12 @@ namespace particles
                 }
             }
         }
+
+        private void tbParticlesCount_Scroll(object sender, EventArgs e)
+        {
+            emitter.ParticlesCount = tbParticlesCount.Value;
+
+            lblParticlesCount.Text = $"Частиц: {tbParticlesCount.Value}";
+        }
     }
 }
