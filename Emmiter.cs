@@ -14,7 +14,7 @@ namespace particles
         // собственно список
         List<Particle> particles = new List<Particle>();
         public float GravitationX = 0;
-        public float GravitationY = 0; // пусть гравитация будет силой один пиксель за такт, нам хватит
+        public float GravitationY = 0;
 
         public List<IImpactPoint> impactPoints = new List<IImpactPoint>(); // <<< ТАК ВОТ
 

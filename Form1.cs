@@ -62,7 +62,7 @@ namespace particles
             // задача 5 раскрашиватель
             this.colorPoint = new ColorPoint
             {
-                X = picDisplay.Width / 4, // Слева
+                X = picDisplay.Width / 4,
                 Y = picDisplay.Height / 1.5f,
                 Color = Color.White 
             };
@@ -72,7 +72,7 @@ namespace particles
             // задача 6 
              var counterPoint = new CounterPoint
             {
-                X = picDisplay.Width / 4, // по центру
+                X = picDisplay.Width / 4,
                 Y = picDisplay.Height - 100,
                 Power = 100
        

@@ -42,7 +42,7 @@ namespace particles
                 // базовую частицу в цветную
                 var colorful = particle as Particle.ParticleColorful;
                 
-                    colorful.FromColor = Color; // замена цвета
+                    colorful.FromColor = Color;
             }
         }
         public override void Render(Graphics g)
@@ -76,7 +76,7 @@ namespace particles
                 if (particle.Life > 0)
                 {
                     particle.Life = 0;
-                    Count++; // увеличиваем счетчик
+                    Count++;
                 }
             }
         }
@@ -93,7 +93,6 @@ namespace particles
             var text = $"{Count}"; 
             var font = new Font("Verdana", 12, FontStyle.Bold);
 
-            // число в центре точки
             g.DrawString(
                 text,
                 font,
@@ -137,7 +136,6 @@ namespace particles
                 g.DrawEllipse(new Pen(Color.Lime, 2), pos.X - 5, pos.Y - 5, 10, 10);
             }
 
-            // текст с количеством в центре
             var stringFormat = new StringFormat();
             stringFormat.Alignment = StringAlignment.Center;
             stringFormat.LineAlignment = StringAlignment.Far;
